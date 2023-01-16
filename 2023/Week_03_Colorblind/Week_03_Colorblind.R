@@ -15,6 +15,7 @@
 
 library(geobr)
 library(readxl)
+library(MetBrewer)
 library(showtext)
 library(sf)
 library(tidyverse)
@@ -62,13 +63,13 @@ df <-
 
 
 títulos <- list(título = "Unidades federais de conservação no Brasil",
-                legenda = "Map Prompt Monday | Semana 03 | Daltonismo | Gráfico por: @depauladiasleo | Dados: Inpe")
+                legenda = "Map Prompt Monday | 2023 | Semana 03 | Daltonismo | Gráfico por: @depauladiasleo | Dados: Inpe")
 
 
 ## Paleta de cores -------------------------------------------------------------
 
 
-bg_col <- "#114747"
+bg_col <- "#471C18"#114747"
 
 
 ## Fontes ----------------------------------------------------------------------
@@ -81,7 +82,7 @@ font_add_google(montserrat)
 theme_set(theme_void(base_family = montserrat))
 
 
-showtext_opts(dpi = 320)
+showtext_opts(dpi = 120)
 showtext_auto()
 
 
@@ -97,16 +98,17 @@ df |>
     fill = "gray90",
     color = "gray99",
     linewidth = 0.05,
-    alpha = 0.25
+    alpha = 0.35
   ) +
   geom_sf(aes(geometry = geom, fill = Floresta),
           color = "gray99",
           linewidth = 0.05) +
-  scale_fill_distiller(
-    palette = "YlGn",
-    direction = 1,
-    label = scales::label_number()
-  ) +
+  MetBrewer::scale_fill_met_c("Isfahan1") +
+  # scale_fill_distiller(
+  #   palette = "YlGn",
+  #   direction = 1,
+  #   label = scales::label_number()
+  # ) +
   theme_void() +
   theme(
     plot.background = element_rect(fill = bg_col,
